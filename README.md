@@ -13,3 +13,6 @@ database => postgresql => youtube-clone-alex
 
 table :
 User (username, email, password, address )
+
+run :
+npm run start

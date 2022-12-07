@@ -4,7 +4,9 @@
   "description": "Aplikasi server ini menggunakan :",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
