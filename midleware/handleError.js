@@ -29,6 +29,8 @@ const handleError = (err, req, res, next) => {
   } else if (err.name === "Forbidden") {
     code = 403;
     message = "You are not authorized";
+  } else if (err.name === "User Not Found") {
+    (code = 400), (message = `User with id ${err.id} Not Found`);
   }
   res.status(code).json({
     message: message,

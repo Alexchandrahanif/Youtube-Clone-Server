@@ -1,3 +1,4 @@
+const { User } = require("../models/index");
 class Controller {
   static async welcome(req, res, next) {
     try {
@@ -10,8 +11,16 @@ class Controller {
   }
   static async register(req, res, next) {
     try {
+      const { username, email, password, address } = req.body;
+      const dataUser = await User.create({
+        username,
+        email,
+        password,
+        address,
+      });
       res.status(200).json({
-        message: "Register data user",
+        username: dataUser.username,
+        email: dataUser.email,
       });
     } catch (error) {
       next(error);
@@ -30,8 +39,9 @@ class Controller {
 
   static async getUsers(req, res, next) {
     try {
+      const dataUser = await User.findAll();
       res.status(200).json({
-        message: "Daftar nama user",
+        data: dataUser,
       });
     } catch (error) {
       next(error);
@@ -41,8 +51,13 @@ class Controller {
   static async getUser(req, res, next) {
     try {
       const { id } = req.params;
+      const data = await User.findByPk(id);
+      if (!data) {
+        throw { name: "User Not Found", id: id };
+      }
+      const dataUser = await User.findByPk(id);
       res.status(200).json({
-        message: `Daftar nama user ${id}`,
+        data: dataUser,
       });
     } catch (error) {
       next(error);
@@ -62,8 +77,17 @@ class Controller {
   static async deleteUser(req, res, next) {
     try {
       const { id } = req.params;
+      const data = await User.findByPk(id);
+      if (!data) {
+        throw { name: "User Not Found", id: id };
+      }
+      const dataUser = await User.destroy({
+        where: {
+          id,
+        },
+      });
       res.status(200).json({
-        message: `Menghapus data User ${id}`,
+        message: `Delete data User with id ${id} successfully`,
       });
     } catch (error) {
       next(error);
