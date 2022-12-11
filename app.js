@@ -1,7 +1,8 @@
-const express = require("express");
-const cors = require("cors");
 const router = require("./router");
 const handleError = require("./midleware/handleError");
+
+const cors = require("cors");
+const express = require("express");
 
 const app = express();
 const port = process.env.PORT || 3000;
